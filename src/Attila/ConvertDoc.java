@@ -10,5 +10,12 @@ package Attila;
  * @author Attila
  */
 public class ConvertDoc {
-    
+
+    /**
+     *
+     * @param file Input file.
+     */
+    public ConvertDoc(java.io.File file){
+        System.out.println("Doc konvertálása!");
+    }
 }
