@@ -5,20 +5,20 @@
  */
 package Attila;
 
-import java.io.File;
+import java.io.*;
 
 /**
  *
- * @author Attila
+ * @author Babinszki Attila
  */
-public class ConvertDoc {
+public class ConvertDocx {
 
     /**
      *
      * @param input
      * @param output
      */
-    public static void convert(File input, File output){
+    public static void convert(File input, File output) throws Exception {
         
     }
 }
