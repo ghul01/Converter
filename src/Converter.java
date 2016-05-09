@@ -1,5 +1,8 @@
+
 import Attila.*;
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 
 /*
@@ -7,7 +10,6 @@ import javax.swing.JFileChooser;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Babinszki Attila
@@ -111,6 +113,14 @@ public class Converter extends javax.swing.JFrame {
                         case "doc":
                             ConvertDoc.convert(input, output);
                             break;
+                        case "html": {
+                            try {
+                                ConvertHTML.convert(input, output);
+                            } catch (Exception ex) {
+                                Logger.getLogger(Converter.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                        break;
                         default:
                             System.err.println("Ismeretlen fájl formátum!");
                             break;
