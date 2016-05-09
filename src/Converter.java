@@ -116,6 +116,7 @@ public class Converter extends javax.swing.JFrame {
                         case "html": {
                             try {
                                 ConvertHTML.convert(input, output);
+                                //ConvertHTML.convertFromURL(input, output);
                             } catch (Exception ex) {
                                 Logger.getLogger(Converter.class.getName()).log(Level.SEVERE, null, ex);
                             }
