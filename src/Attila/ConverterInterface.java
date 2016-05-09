@@ -1,3 +1,5 @@
+package Attila;
+
 
 import java.io.File;
 
@@ -18,5 +20,5 @@ public interface ConverterInterface {
      * @param input
      * @param output
      */
-    public void convert(File input, File output);
+    public void convert(File input, File output) throws Exception;
 }

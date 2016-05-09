@@ -5,6 +5,7 @@
  */
 package Attila;
 
+import html2markdown.HTML2Md;
 import java.io.*;
 
 /**
