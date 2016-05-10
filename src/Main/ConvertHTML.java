@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Attila;
+package Main;
 
 import java.io.*;
 import html2markdown.*;

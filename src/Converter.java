@@ -1,5 +1,5 @@
 
-import Attila.*;
+import Main.*;
 import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -104,12 +104,23 @@ public class Converter extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // Konvertalas:
         if (!"".equals(TextFieldInput.getText()) && !"".equals(TextFieldOutput.getText())) { //
-            if (input.exists() && input.canRead() && output.canWrite()) {
+            if (input.exists() && input.canRead() ) {
                 String filename = input.getName();
                 if (filename.lastIndexOf('.') > 0) {
                     String fileextension = filename.substring(filename.lastIndexOf('.') + 1);
                     switch (fileextension) {
                         //Ide rakjártok a konvertáló classokat!
+                        case "txt":
+
+                    {
+                        try {
+                            ConvertTXT.convert(input, output);
+                        } catch (Exception ex) {
+                            Logger.getLogger(Converter.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+
+                            break;
                         case "doc":
                             ConvertDoc.convert(input, output);
                             break;

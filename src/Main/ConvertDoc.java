@@ -3,23 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Attila;
+package Main;
 
-import html2markdown.HTML2Md;
-import java.io.*;
+import java.io.File;
 
 /**
  *
- * @author Babinszki Attila
+ * @author Attila
  */
-public class ConvertDocx {
+public class ConvertDoc {
 
     /**
      *
      * @param input
      * @param output
      */
-    public static void convert(File input, File output) throws Exception {
+    public static void convert(File input, File output){
         
     }
 }
