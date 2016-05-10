@@ -16,14 +16,14 @@ import static jdk.nashorn.internal.objects.NativeRegExp.source;
 public class ConvertTXT {
 
     /**
-     *
-     * @param input
-     * @param output
+     *Txt tartalmának át másolsása mdbe.
+     * @param input .txt
+     * @param output .md
      * @throws Exception
      */
     public static void convert(File input, File output) throws Exception {
-        if(output.exists())output.delete();
-        Files.copy(input.toPath(), output.toPath());
+        if(output.exists())output.delete();//Eceptionok kerülése végett törlöm a fájl-t.
+        Files.copy(input.toPath(), output.toPath());//Át másolom a txt fájlt mdbe mert konverziót nem igényel.
 
     }
 

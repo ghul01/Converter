@@ -11,7 +11,7 @@ import javax.swing.JFileChooser;
  * and open the template in the editor.
  */
 /**
- *
+ *Txt, html, doc, docx konvertálása md-be.
  * @author Babinszki Attila
  */
 public class Converter extends javax.swing.JFrame {
@@ -84,43 +84,47 @@ public class Converter extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+ * Input kivalasztasa
+ * @param evt 
+ */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // Input kivalasztasa
         if (filechooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             input = filechooser.getSelectedFile();
             TextFieldInput.setText(input.getName());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-
+/**
+ * Output fajl kivalasztasa.
+ * @param evt 
+ */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // output kivalasztasa:
         if (filechooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             output = filechooser.getSelectedFile();
             TextFieldOutput.setText(output.getName());
         }
     }//GEN-LAST:event_jButton2ActionPerformed
-
+    /**
+     *Konvertalas.
+     * @param evt
+     */
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // Konvertalas:
         if (!"".equals(TextFieldInput.getText()) && !"".equals(TextFieldOutput.getText())) { //
-            if (input.exists() && input.canRead() ) {
+            if (input.exists() && input.canRead()) {
                 String filename = input.getName();
                 if (filename.lastIndexOf('.') > 0) {
                     String fileextension = filename.substring(filename.lastIndexOf('.') + 1);
                     switch (fileextension) {
                         //Ide rakjártok a konvertáló classokat!
-                        case "txt":
-
-                    {
-                        try {
-                            ConvertTXT.convert(input, output);
-                        } catch (Exception ex) {
-                            Logger.getLogger(Converter.class.getName()).log(Level.SEVERE, null, ex);
+                        case "txt": {
+                            try {
+                                ConvertTXT.convert(input, output);
+                            } catch (Exception ex) {
+                                Logger.getLogger(Converter.class.getName()).log(Level.SEVERE, null, ex);
+                            }
                         }
-                    }
 
-                            break;
+                        break;
                         case "doc":
                             ConvertDoc.convert(input, output);
                             break;
@@ -163,22 +167,13 @@ public class Converter extends javax.swing.JFrame {
 
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Converter.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Converter.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Converter.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Converter.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        
         //</editor-fold>
 
         /* Create and display the form */
