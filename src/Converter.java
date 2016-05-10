@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -11,7 +12,8 @@ import javax.swing.JFileChooser;
  * and open the template in the editor.
  */
 /**
- *Txt, html, doc, docx konvertálása md-be.
+ * Txt, html, doc, docx konvertálása md-be.
+ *
  * @author Babinszki Attila
  */
 public class Converter extends javax.swing.JFrame {
@@ -85,19 +87,21 @@ public class Converter extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 /**
- * Input kivalasztasa
- * @param evt 
- */
+     * Input kivalasztasa
+     *
+     * @param evt
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (filechooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             input = filechooser.getSelectedFile();
             TextFieldInput.setText(input.getName());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-/**
- * Output fajl kivalasztasa.
- * @param evt 
- */
+    /**
+     * Output fajl kivalasztasa.
+     *
+     * @param evt
+     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if (filechooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             output = filechooser.getSelectedFile();
@@ -105,7 +109,8 @@ public class Converter extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
     /**
-     *Konvertalas.
+     * Konvertalas.
+     *
      * @param evt
      */
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -119,18 +124,29 @@ public class Converter extends javax.swing.JFrame {
                         case "txt": {
                             try {
                                 ConvertTXT.convert(input, output);
+                                showMessageDialog(null, "Sikeres konvertálás!");
                             } catch (Exception ex) {
                                 Logger.getLogger(Converter.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         }
 
                         break;
+                        case "docx":
                         case "doc":
-                            ConvertDoc.convert(input, output);
+                            File temp = new File("temp.html");
+                            ConvertDoc.convert(input, temp);
+                            try {
+                                ConvertHTML.convert(temp, output);
+                                showMessageDialog(null, "Sikeres konvertálás!");
+                            } catch (Exception ex) {
+                                Logger.getLogger(Converter.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            temp.delete();
                             break;
                         case "html": {
                             try {
                                 ConvertHTML.convert(input, output);
+                                showMessageDialog(null, "Sikeres konvertálás!");
                                 //ConvertHTML.convertFromURL(input, output);
                             } catch (Exception ex) {
                                 Logger.getLogger(Converter.class.getName()).log(Level.SEVERE, null, ex);
@@ -142,11 +158,11 @@ public class Converter extends javax.swing.JFrame {
                             break;
                     }
                 } else {
-                    System.err.println("Ismeretlen fájl formátum!");
+                    showMessageDialog(null,"Ismeretlen fájl formátum!");
                 }
             }
         } else {
-            System.err.println("Nem jó bemeneti vagy a kimenti fájl!");
+            showMessageDialog(null, "Nem jó bemeneti vagy a kimenti fájl!");
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -173,7 +189,7 @@ public class Converter extends javax.swing.JFrame {
 
         }
         //</editor-fold>
-        
+
         //</editor-fold>
 
         /* Create and display the form */
