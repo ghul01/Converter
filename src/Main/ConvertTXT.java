@@ -63,11 +63,11 @@ public class ConvertTXT {
                     List<String> tempurls = extractUrls(s);
                     urls.addAll(tempurls);
                     quitter++;
-                    System.out.println(quitter);
+                    //System.out.println(quitter);
                 }
                 if (urls.size() != 0) {
                     for (String url : urls) {
-                        System.out.println(url);
+                        //System.out.println(url);
                         search = url;
                         replace = "[" + url + "](" + url + ")";
                         totalStr = totalStr.replaceAll(search, replace);
