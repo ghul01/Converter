@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 /*
@@ -49,13 +50,13 @@ public class Converter extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("Choose file:");
+        jLabel1.setText("Válasszon fájlt:");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         TextFieldInput.setFocusable(false);
         getContentPane().add(TextFieldInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 350, -1));
 
-        jButton1.setText("...");
+        jButton1.setText("Tallózás");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -63,13 +64,13 @@ public class Converter extends javax.swing.JFrame {
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 20, -1, -1));
 
-        jLabel2.setText("Covert to:");
+        jLabel2.setText("Konvertálás ide:");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, -1, -1));
 
         TextFieldOutput.setFocusable(false);
         getContentPane().add(TextFieldOutput, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 350, -1));
 
-        jButton2.setText("...");
+        jButton2.setText("Tallózás");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -77,7 +78,7 @@ public class Converter extends javax.swing.JFrame {
         });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 80, -1, -1));
 
-        jButton3.setText("Convert");
+        jButton3.setText("Konvertálás");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -116,54 +117,58 @@ public class Converter extends javax.swing.JFrame {
      */
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         if (!"".equals(TextFieldInput.getText()) && !"".equals(TextFieldOutput.getText())) { //
-            if (input.exists() && input.canRead()) {
-                String filename = input.getName();
-                if (filename.lastIndexOf('.') > 0) {
-                    String fileextension = filename.substring(filename.lastIndexOf('.') + 1);
-                    switch (fileextension) {
-                        //Ide rakjártok a konvertáló classokat!
-                        case "txt": {
-                            try {
-                                ConvertTXT.convert(input, output);
-                                showMessageDialog(null, "Sikeres konvertálás!");
-                            } catch (Exception ex) {
-                                Logger.getLogger(Converter.class.getName()).log(Level.SEVERE, null, ex);
+            if (!(TextFieldInput.getText().equals(TextFieldOutput.getText()))) {
+                if (input.exists() && input.canRead()) {
+                    String filename = input.getName();
+                    if (filename.lastIndexOf('.') > 0) {
+                        String fileextension = filename.substring(filename.lastIndexOf('.') + 1);
+                        switch (fileextension) {
+                            //Ide rakjártok a konvertáló classokat!
+                            case "txt": {
+                                try {
+                                    ConvertTXT.convert(input, output);
+                                    showMessageDialog(null, "Sikeres konvertálás!", "Kész", JOptionPane.INFORMATION_MESSAGE);
+                                } catch (Exception ex) {
+                                    Logger.getLogger(Converter.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                             }
-                        }
 
-                        break;
-                        case "docx":
-                        case "doc":
-                            File temp = new File("temp.html");
-                            ConvertDoc.convert(input, temp);
-                            try {
-                                ConvertHTML.convert(temp, output);
-                                showMessageDialog(null, "Sikeres konvertálás!");
-                            } catch (Exception ex) {
-                                Logger.getLogger(Converter.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                            temp.delete();
                             break;
-                        case "html": {
-                            try {
-                                ConvertHTML.convert(input, output);
-                                showMessageDialog(null, "Sikeres konvertálás!");
-                                //ConvertHTML.convertFromURL(input, output);
-                            } catch (Exception ex) {
-                                Logger.getLogger(Converter.class.getName()).log(Level.SEVERE, null, ex);
+                            case "docx":
+                            case "doc":
+                                File temp = new File("temp.html");
+                                ConvertDoc.convert(input, temp);
+                                try {
+                                    ConvertHTML.convert(temp, output);
+                                    showMessageDialog(null, "Sikeres konvertálás!", "Kész", JOptionPane.INFORMATION_MESSAGE);
+                                } catch (Exception ex) {
+                                    Logger.getLogger(Converter.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                                temp.delete();
+                                break;
+                            case "html": {
+                                try {
+                                    ConvertHTML.convert(input, output);
+                                    showMessageDialog(null, "Sikeres konvertálás!", "Kész", JOptionPane.INFORMATION_MESSAGE);
+                                    //ConvertHTML.convertFromURL(input, output);
+                                } catch (Exception ex) {
+                                    Logger.getLogger(Converter.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                             }
+                            break;
+                            default:
+                                System.err.println("Ismeretlen fájl formátum!");
+                                break;
                         }
-                        break;
-                        default:
-                            System.err.println("Ismeretlen fájl formátum!");
-                            break;
+                    } else {
+                        showMessageDialog(null, "Ismeretlen fájl formátum!", "Hiba történt!", JOptionPane.WARNING_MESSAGE);
                     }
-                } else {
-                    showMessageDialog(null,"Ismeretlen fájl formátum!");
                 }
+            } else {
+                showMessageDialog(null, "Nem egyezhet a bemenet és a kimenet!", "Hiba történt!", JOptionPane.WARNING_MESSAGE);
             }
         } else {
-            showMessageDialog(null, "Nem jó bemeneti vagy a kimenti fájl!");
+            showMessageDialog(null, "Nem jó bemeneti vagy a kimeneti fájl!", "Hiba történt!", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
