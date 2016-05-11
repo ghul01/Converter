@@ -26,6 +26,7 @@ public class Converter extends javax.swing.JFrame {
      */
     public Converter() {
         initComponents();
+        setTitle("MDconverter");
     }
 
     /**
